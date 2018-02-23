@@ -39,6 +39,10 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         return true
     }
 
-
+    // Zoom to the annotation when it is selected
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4000, pitch: 0, heading: 0)
+        mapView.setCamera(camera, animated: true)
+    }
 }
 
