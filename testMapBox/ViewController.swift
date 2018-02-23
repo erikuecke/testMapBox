@@ -31,6 +31,9 @@ class ViewController: UIViewController, MGLMapViewDelegate {
         
         // Set the map view's delegate
         mapView.delegate = self
+        
+        // Allow the map view to display the user's location
+        mapView.showsUserLocation = true
     
     }
 
@@ -42,7 +45,7 @@ class ViewController: UIViewController, MGLMapViewDelegate {
     // Zoom to the annotation when it is selected
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4000, pitch: 0, heading: 0)
-        mapView.setCamera(camera, animated: true)
+        mapView.fly(to: camera, completionHandler: nil)
     }
 }
 
