@@ -7,17 +7,36 @@
 //
 
 import UIKit
+import Mapbox
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, MGLMapViewDelegate {
+    
+    @IBOutlet weak var mapView: MGLMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+//        mapView.frame = self.view.bounds
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 40.74699, longitude: -73.98742), zoomLevel: 10, animated: false)
+//        view.addSubview(mapView)
+        mapView.styleURL = MGLStyle.satelliteStyleURL()
+        
+        // Add a point annotation
+        let annotation = MGLPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 40.77014, longitude: -73.97480)
+        annotation.title = "Central Park"
+        annotation.subtitle = "The biggest park in New York City!"
+        mapView.addAnnotation(annotation)
+        
+        // Set the map view's delegate
+        mapView.delegate = self
+    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Tap annotation call out.
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
     }
 
 
